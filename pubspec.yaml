@@ -18,6 +18,10 @@ dependencies:
   flutter_svg: ^2.0.10
   flutter_riverpod: ^2.5.1
   riverpod_annotation: ^2.3.5
+  hive: 
+  isar: 
+  isar_flutter_libs:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +32,7 @@ dev_dependencies:
   custom_lint:
   riverpod_generator: 
   riverpod_lint: 
+  isar_generator: 
 
 flutter:
   generate: true

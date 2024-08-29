@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurant_tour/models/restaurant.dart';
 
-const _apiKey = 'jDAa66p-bEGkxqUmW-yHNlKTofWaGmR9c1npOIs-ZXJ0y85439eqoJABr9n6xMMpZcjygHoEyKa_gACZOvMESTi3DdbV11JDjlV-FFDimt0QIsgSe5KuV86ASWLOZnYx';
+const _apiKey =
+    'jDAa66p-bEGkxqUmW-yHNlKTofWaGmR9c1npOIs-ZXJ0y85439eqoJABr9n6xMMpZcjygHoEyKa_gACZOvMESTi3DdbV11JDjlV-FFDimt0QIsgSe5KuV86ASWLOZnYx';
 
 class YelpRepository {
   late Dio dio;
@@ -68,6 +69,7 @@ class YelpRepository {
       );
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } catch (e) {
+      print(e);
       return null;
     }
   }
