@@ -7,6 +7,7 @@ import 'package:restaurant_tour/ui/widgets/rating_icon_list.dart';
 
 Widget restaurantListItem(BuildContext context, Restaurant restaurant) {
   return GestureDetector(
+    key: Key(restaurant.id!),
     onTap: () {
       Navigator.push(
         context,
@@ -41,10 +42,12 @@ Widget restaurantListItem(BuildContext context, Restaurant restaurant) {
             ),
             height: 88,
             width: 88,
-            child: Image.network(
-              restaurant.photos?.first ?? "",
-              fit: BoxFit.cover,
-            ),
+            child: !(const bool.fromEnvironment("TESTING"))
+                ? Image.network(
+                    restaurant.photos?.first ?? "",
+                    fit: BoxFit.cover,
+                  )
+                : Container(),
           ),
           const SizedBox(
             width: 12,

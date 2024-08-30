@@ -22,6 +22,7 @@ dependencies:
   isar: 
   isar_flutter_libs:
   path_provider:
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:

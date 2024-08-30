@@ -52,10 +52,12 @@ class _RestaurantDetailPageState extends ConsumerState<RestaurantDetailPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              widget.restaurant.photos?.first ?? "",
-              fit: BoxFit.cover,
-            ),
+            !(const bool.fromEnvironment("TESTING"))
+                ? Image.network(
+                    widget.restaurant.photos?.first ?? "",
+                    fit: BoxFit.cover,
+                  )
+                : Container(),
             const SizedBox(
               height: 24,
             ),

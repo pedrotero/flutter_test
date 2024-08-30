@@ -6,7 +6,7 @@ part of 'favourites_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favouritesHash() => r'4d54908b64e2ad0fd0eecfb428fae5330e3c4f3a';
+String _$favouritesHash() => r'4ccb0b3a6f597a28e00076e84770108366d445c7';
 
 /// See also [Favourites].
 @ProviderFor(Favourites)
@@ -16,8 +16,8 @@ final favouritesProvider =
   name: r'favouritesProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$favouritesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: const <ProviderOrFamily>[],
+  allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
 typedef _$Favourites = AsyncNotifier<List<Restaurant>>;

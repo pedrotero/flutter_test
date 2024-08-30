@@ -48,7 +48,8 @@ Widget homePageTabBar(
             ),
           ),
           child: Text(
-            "My favourites",
+            "My favorites",
+            key: const Key("favouritesButton"),
             style: showFavourites
                 ? AppTextStyles.openRegularTitleSemiBold
                 : AppTextStyles.openRegularTitleSemiBold

@@ -25,7 +25,8 @@ Widget reviewListItem(Review review) {
               clipBehavior: Clip.hardEdge,
               height: 40,
               width: 40,
-              child: review.user?.imageUrl != null
+              child: review.user?.imageUrl != null &&
+                      !(const bool.fromEnvironment("TESTING"))
                   ? Image.network(
                       review.user?.imageUrl ?? '',
                       fit: BoxFit.cover,

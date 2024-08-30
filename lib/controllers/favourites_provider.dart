@@ -1,30 +1,54 @@
-import 'package:restaurant_tour/data/isar.dart';
+import 'dart:convert';
+
 import 'package:restaurant_tour/models/restaurant.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'favourites_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [])
 class Favourites extends _$Favourites {
-  late IsarService _isarService;
+  final SharedPreferencesAsync _sharedPrefs = SharedPreferencesAsync();
+
+  Future<List<Restaurant>> _readAll() async {
+    final dryRestaurants = await _sharedPrefs.getStringList("favourites") ?? [];
+
+    return (dryRestaurants
+        .map((str) => Restaurant.fromJson(jsonDecode(str)))
+        .toList());
+  }
 
   @override
   Future<List<Restaurant>> build() async {
-    _isarService = ref.watch(isarServiceProvider.notifier);
-    return (await _isarService.readAll());
+    return await _readAll();
   }
 
   Future<void> addFavourite(Restaurant restaurant) async {
-    await _isarService.writeOne(restaurant);
-    state = AsyncData(await _isarService.readAll());
+    List<Restaurant> favourites = state.value ?? await _readAll();
+    List<String> dryFavourites =
+        favourites.map((r) => jsonEncode(r.toJson())).toList();
+    String newRestaurant = jsonEncode(restaurant.toJson());
+    dryFavourites = [...dryFavourites, newRestaurant];
+    await _sharedPrefs.setStringList("favourites", dryFavourites);
+    state = AsyncData([...favourites, restaurant]);
   }
 
   Future<Restaurant?> findById(String id) async {
-    return await _isarService.findById(id);
+    List<Restaurant> favourites = state.value ?? await _readAll();
+    return favourites
+        .where(
+          (e) => e.id == id,
+        )
+        .firstOrNull;
   }
 
   Future<void> deleteFavourite(String id) async {
-    await _isarService.deleteOne(id);
-    state = AsyncData(await _isarService.readAll());
+    List<Restaurant> favourites = state.value ?? await _readAll();
+    int index = favourites.indexWhere((r) => r.id == id);
+    favourites.removeAt(index);
+    List<String> dryFavourites =
+        favourites.map((r) => jsonEncode(r.toJson())).toList();
+    await _sharedPrefs.setStringList("favourites", dryFavourites);
+    state = AsyncData(favourites);
   }
 }
